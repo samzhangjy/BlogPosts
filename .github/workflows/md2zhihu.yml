@@ -9,8 +9,3 @@ jobs:
       env:
         GITHUB_USERNAME: ${{ github.repository_owner }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        pattern: >
-            **/*.md
-            **/*.markdown
-        output_dir: zhihu
