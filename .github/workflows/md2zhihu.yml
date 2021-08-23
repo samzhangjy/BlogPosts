@@ -11,6 +11,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         pattern: >
-            posts/*.md
-            posts/*.markdown
+            posts/*/*.md
+            posts/*/*.markdown
         output_dir: zhihu
