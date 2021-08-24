@@ -124,13 +124,70 @@ int main() {
 
 **Prim（普利姆）** 是Dijkstra的一个扩展。
 
-Prim算法与Dijkstra算法唯一的区别在于：Prim算法所记录的距离并非从某个起点到终点的距离，而是当前的生成树到某个点的最短距离。
+Prim算法与Dijkstra算法唯一的区别在于：Prim算法所记录的距离（`dis`数组）并非从某个起点到终点的距离，而是当前的生成树到某个点的最短距离。
 
 其余部分与Dijkstra算法一致。同样，Prim算法也可以使用堆进行优化，以提高效率。
 
+但是，一般我们不推荐在稀疏图上使用Prim堆优化。堆优化后的Prim在稀疏图上的效率与Kruskal类似，但明显Kruskal代码复杂度较低。
+
 #### 参考代码
 
-待补充。
+```cpp
+#include <iostream>
+#include <cstdio>
+#include <memory.h>
+#include <algorithm>
+using namespace std;
+const int N = 5010;
+
+int g[N][N], dis[N];  // 邻接矩阵存图
+bool vis[N];  // 是否经过了某个点
+int n, m, ans, u, v, w;
+
+void initialize() {  // 初始化
+    memset(g, 0x3f, sizeof(g));
+    memset(dis, 0x3f, sizeof(dis));
+}
+
+void addEdge(int u, int v, int w) {  // 添加一条 u <-> v，权值为w的无向边
+    if (u != v && g[u][v] > w) g[u][v] = g[v][u] = w;
+}
+
+void prim() {  // Prim
+    for (int i = 0; i < n; i++) {  // 遍历每个点
+        int k = 0;  // 距离最近的点的坐标
+        for (int j = 1; j <= n; j++) {  // 寻找距离点i最近的未访问过的点
+            if (!vis[j] && dis[j] < dis[k]) k = j;
+        }
+        vis[k] = 1;  // 标记访问
+        ans += dis[k];  // 记录权值
+        for (int j = 1; j <= n; j++) {  // 再次遍历每个点，更新最短路
+            if (!vis[j] && dis[j] > g[k][j]) {  // 未访问过且路程比当前记录的小
+                dis[j] = g[k][j];  // 更新权值
+            }
+        }
+    }
+}
+
+int main() {
+    initialize();
+    scanf("%d%d", &n, &m);
+    while (m--) {
+        scanf("%d%d%d", &u, &v, &w);
+        addEdge(u, v, w); addEdge(v, u, w);
+    }
+    dis[1] = 0;  // 约定俗成，从点1跑prim，赋值为0是为了消除自环
+    prim();
+    for (int i = 1; i <= n; i++) {  // 判断是否建立成树
+        if (!vis[i]) {  // 如果有点未访问，则没有最小生成树
+            printf("orz\n");
+            return 0;
+        }
+    }
+    printf("%d\n", ans);  // 否则输出权重和
+    return 0;
+}
+```
 
 ## 参考资料
 
