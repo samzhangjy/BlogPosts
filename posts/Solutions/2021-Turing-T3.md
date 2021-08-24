@@ -1,14 +1,14 @@
 # 括号匹配 题解
 
-## <img src="https://www.zhihu.com/equation?tex=Description" alt="Description" class="ee_img tr_noresize" eeimg="1">
+## $Description$
 
-给定一个长度为<img src="https://www.zhihu.com/equation?tex=n" alt="n" class="ee_img tr_noresize" eeimg="1">的，由若干个`{`和`}`组成的括号串<img src="https://www.zhihu.com/equation?tex=s" alt="s" class="ee_img tr_noresize" eeimg="1">，并给定一个整数<img src="https://www.zhihu.com/equation?tex=p" alt="p" class="ee_img tr_noresize" eeimg="1">，求与<img src="https://www.zhihu.com/equation?tex=s_p" alt="s_p" class="ee_img tr_noresize" eeimg="1">匹配的另一个左 / 右括号<img src="https://www.zhihu.com/equation?tex=s_k" alt="s_k" class="ee_img tr_noresize" eeimg="1">的位置<img src="https://www.zhihu.com/equation?tex=k" alt="k" class="ee_img tr_noresize" eeimg="1">。
+给定一个长度为$n$的，由若干个`{`和`}`组成的括号串$s$，并给定一个整数$p$，求与$s_p$匹配的另一个左 / 右括号$s_k$的位置$k$。
 
-## <img src="https://www.zhihu.com/equation?tex=Algorithm" alt="Algorithm" class="ee_img tr_noresize" eeimg="1">
+## $Algorithm$
 
 一眼看上去，欸，这不是栈的板子题吗？只不过从判断括号串合不合法变成了找到与一个括号匹配的另一个括号罢了。于是，我们先来讲一下未经更改的板子题：洛谷[P1739](https://www.luogu.com.cn/problem/P1739)。
 
-### <img src="https://www.zhihu.com/equation?tex=Prerequisites" alt="Prerequisites" class="ee_img tr_noresize" eeimg="1">
+### $Prerequisites$
 
 - 栈
 
@@ -18,11 +18,11 @@
 
 我们可以用`栈`来达到这一点。
 
-假设我们有这个括号序列：<img src="https://www.zhihu.com/equation?tex=(())" alt="(())" class="ee_img tr_noresize" eeimg="1">。很明显，它是合法的。但是，让程序也明白这一点，我们需要更详细的解释。
+假设我们有这个括号序列：$(())$。很明显，它是合法的。但是，让程序也明白这一点，我们需要更详细的解释。
 
-如果要使括号序列<img src="https://www.zhihu.com/equation?tex=s" alt="s" class="ee_img tr_noresize" eeimg="1">内的所有括号匹配，肯定左括号的数量跟右括号的数量要相等。但是，例如<img src="https://www.zhihu.com/equation?tex=)()(" alt=")()(" class="ee_img tr_noresize" eeimg="1">这样的括号序列当然也不行。怎么办呢？这时候就需要用到`栈`了。
+如果要使括号序列$s$内的所有括号匹配，肯定左括号的数量跟右括号的数量要相等。但是，例如$)()($这样的括号序列当然也不行。怎么办呢？这时候就需要用到`栈`了。
 
-首先，我们输入一个括号<img src="https://www.zhihu.com/equation?tex=p" alt="p" class="ee_img tr_noresize" eeimg="1">。如果它是左括号，那么我们直接把它压入栈；否则，它就是右括号。我们需要对右括号进行如下判断：
+首先，我们输入一个括号$p$。如果它是左括号，那么我们直接把它压入栈；否则，它就是右括号。我们需要对右括号进行如下判断：
 
 1. 若栈顶为空，则代表这个括号不匹配，致使整个序列不合法。我们可以直接输出`NO`并结束程序；
 2. 若栈顶非空且栈顶为`(`，那么这是一对匹配的括号，可以弹出栈顶并继续循环；
@@ -40,7 +40,7 @@
 
 我们还是需要一个栈来维护我们的括号序列。
 
-跟上道题一样，我们要把碰到的左括号都压入栈。这时候，当要匹配的括号（<img src="https://www.zhihu.com/equation?tex=s_k" alt="s_k" class="ee_img tr_noresize" eeimg="1">）是左括号的时候，问题就变得相当简单了。我们只需要在遇到第<img src="https://www.zhihu.com/equation?tex=p" alt="p" class="ee_img tr_noresize" eeimg="1">个括号的时候输出与之匹配的左括号的位置即可。
+跟上道题一样，我们要把碰到的左括号都压入栈。这时候，当要匹配的括号（$s_k$）是左括号的时候，问题就变得相当简单了。我们只需要在遇到第$p$个括号的时候输出与之匹配的左括号的位置即可。
 
 但是，这里还有一个小问题：如何记录括号位置？
 
@@ -55,13 +55,13 @@ struct brace {
 
 问题就迎刃而解了。
 
-然后，我们可以来看看下一个问题：如何匹配右括号？其实也同样简单。在每次输入的是右括号的时候，我们都判断与之匹配的与之匹配的左括号id是否为<img src="https://www.zhihu.com/equation?tex=p" alt="p" class="ee_img tr_noresize" eeimg="1">即可。
+然后，我们可以来看看下一个问题：如何匹配右括号？其实也同样简单。在每次输入的是右括号的时候，我们都判断与之匹配的与之匹配的左括号id是否为$p$即可。
 
 但是，还有最后一个问题：怎么判断该匹配的括号是左括号还是右括号？
 
-因为题目给定的括号串是合法的，所以左括号只可能在与之匹配的右括号前面。所以，每次遇到左括号的时候，我们都判断它的id是否等于<img src="https://www.zhihu.com/equation?tex=p" alt="p" class="ee_img tr_noresize" eeimg="1">，若等于则打上标记，代表我们要匹配的是右括号；反之，则是要匹配左括号。
+因为题目给定的括号串是合法的，所以左括号只可能在与之匹配的右括号前面。所以，每次遇到左括号的时候，我们都判断它的id是否等于$p$，若等于则打上标记，代表我们要匹配的是右括号；反之，则是要匹配左括号。
 
-## <img src="https://www.zhihu.com/equation?tex=Code" alt="Code" class="ee_img tr_noresize" eeimg="1">
+## $Code$
 
 在这里，为了方便，我使用了STL的`stack`。细节详见注释。
 
@@ -104,3 +104,5 @@ int main() {
 ```
 
 Thank you for reading!
+
+```

@@ -4,7 +4,7 @@
 
 ## Description
 
-题目很简单，就是有 <img src="https://www.zhihu.com/equation?tex=N" alt="N" class="ee_img tr_noresize" eeimg="1"> 头大象想要站在一个总承重量为 <img src="https://www.zhihu.com/equation?tex=W" alt="W" class="ee_img tr_noresize" eeimg="1"> 的蜘蛛网上（好神奇 qwq）。其中，第 <img src="https://www.zhihu.com/equation?tex=i" alt="i" class="ee_img tr_noresize" eeimg="1"> 头大象的重量是 <img src="https://www.zhihu.com/equation?tex=w_i" alt="w_i" class="ee_img tr_noresize" eeimg="1"> 。求最多蜘蛛网上能站多少头大象。
+题目很简单，就是有 $N$ 头大象想要站在一个总承重量为 $W$ 的蜘蛛网上（好神奇 qwq）。其中，第 $i$ 头大象的重量是 $w_i$ 。求最多蜘蛛网上能站多少头大象。
 
 其实就是把数组升序排序，并统计累加即可。
 
@@ -14,7 +14,7 @@
 
 我们使用优先队列建立一个小根堆，然后在小根堆中进行排序（C++ 的 `priority_queue` 会自动进行堆的 up 和 down 操作）。
 
-然后我们在没有累加到 <img src="https://www.zhihu.com/equation?tex=W" alt="W" class="ee_img tr_noresize" eeimg="1"> 的时候一直累加堆顶并弹出堆顶即可。
+然后我们在没有累加到 $W$ 的时候一直累加堆顶并弹出堆顶即可。
 
 ## Code
 

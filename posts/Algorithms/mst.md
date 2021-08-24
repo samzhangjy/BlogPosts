@@ -15,24 +15,24 @@
 
 ### 定义
 
-> 一个有 <img src="https://www.zhihu.com/equation?tex=n" alt="n" class="ee_img tr_noresize" eeimg="1"> 个结点的连通图的生成树是原图的极小连通子图，且包含原图中的所有 <img src="https://www.zhihu.com/equation?tex=n" alt="n" class="ee_img tr_noresize" eeimg="1"> 个结点，并且有保持图连通的最少的边。最小生成树可以用`Kruskal`（克鲁斯卡尔）算法或`Prim`（普里姆）算法求出。[<sup>\[1\]</sup>](#refer-1)
+> 一个有 $n$ 个结点的连通图的生成树是原图的极小连通子图，且包含原图中的所有 $n$ 个结点，并且有保持图连通的最少的边。最小生成树可以用`Kruskal`（克鲁斯卡尔）算法或`Prim`（普里姆）算法求出。[<sup>\[1\]</sup>](#refer-1)
 
 ### 大意
 
-在一张连通图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 里，有 <img src="https://www.zhihu.com/equation?tex=n" alt="n" class="ee_img tr_noresize" eeimg="1"> 个节点和 <img src="https://www.zhihu.com/equation?tex=m" alt="m" class="ee_img tr_noresize" eeimg="1"> 条边，第 <img src="https://www.zhihu.com/equation?tex=i" alt="i" class="ee_img tr_noresize" eeimg="1"> 条边的权值为 <img src="https://www.zhihu.com/equation?tex=w_i" alt="w_i" class="ee_img tr_noresize" eeimg="1"> 。我们设图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 的最小生成树为 <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 。
+在一张连通图 $G$ 里，有 $n$ 个节点和 $m$ 条边，第 $i$ 条边的权值为 $w_i$ 。我们设图 $G$ 的最小生成树为 $T$ 。
 
-那么，图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 的最小生成树 <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 必须具备以下条件：
+那么，图 $G$ 的最小生成树 $T$ 必须具备以下条件：
 
-- <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 必须包括 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 的所有节点；
-- <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 的边数必须等于 <img src="https://www.zhihu.com/equation?tex=n - 1" alt="n - 1" class="ee_img tr_noresize" eeimg="1">；
-- <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 的边权和必须在所有生成树中最小；
-- <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 必须为 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 的子图。
+- $T$ 必须包括 $G$ 的所有节点；
+- $T$ 的边数必须等于 $n - 1$；
+- $T$ 的边权和必须在所有生成树中最小；
+- $T$ 必须为 $G$ 的子图。
 
-假设我们有如下的连通图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1">（左），那么它的最小生成树 <img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 如图所示（右）。
+假设我们有如下的连通图 $G$（左），那么它的最小生成树 $T$ 如图所示（右）。
 
 ![image.png](https://i.loli.net/2021/08/22/wOfjTEFkBdcz6sW.png)[<sup>\[2\]</sup>](#refer-2)
 
-显然对于图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1">，<img src="https://www.zhihu.com/equation?tex=T" alt="T" class="ee_img tr_noresize" eeimg="1"> 的边权和在所有生成树中最小。我们称这样的树为图 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 的 **最小生成树**（简称MST）。
+显然对于图 $G$，$T$ 的边权和在所有生成树中最小。我们称这样的树为图 $G$ 的 **最小生成树**（简称MST）。
 
 ## 算法
 
@@ -52,19 +52,19 @@
 
 **Kruskal（克鲁斯卡尔）** 是一种贪心策略，类似图论中的Bellman-Ford算法。
 
-简单来说，如果我们挑选了 <img src="https://www.zhihu.com/equation?tex=n-1" alt="n-1" class="ee_img tr_noresize" eeimg="1"> 条较小边，那么显而易见，这 <img src="https://www.zhihu.com/equation?tex=n-1" alt="n-1" class="ee_img tr_noresize" eeimg="1"> 条边的权值相加也会是一个较小值。按照这种思路，我们可以挑选 <img src="https://www.zhihu.com/equation?tex=n-1" alt="n-1" class="ee_img tr_noresize" eeimg="1"> 条 <img src="https://www.zhihu.com/equation?tex=G" alt="G" class="ee_img tr_noresize" eeimg="1"> 里面最小的边并将它们相连。
+简单来说，如果我们挑选了 $n-1$ 条较小边，那么显而易见，这 $n-1$ 条边的权值相加也会是一个较小值。按照这种思路，我们可以挑选 $n-1$ 条 $G$ 里面最小的边并将它们相连。
 
 但是，你以为这就完了？怎么可能。
 
 显然我们上面的做法有一个缺陷：它虽然保证了边权和最小，但是得出的却并不一定是一棵树。相反，它反而有可能得出来一个图（或森林）。我们需要解决这个问题。
 
-显然，对于一条 <img src="https://www.zhihu.com/equation?tex=u \leftrightarrow v" alt="u \leftrightarrow v" class="ee_img tr_noresize" eeimg="1"> 的无向边，若点 <img src="https://www.zhihu.com/equation?tex=u" alt="u" class="ee_img tr_noresize" eeimg="1"> 和点 <img src="https://www.zhihu.com/equation?tex=v" alt="v" class="ee_img tr_noresize" eeimg="1"> 已经连通（直接或间接），那么我们就不再需要加入当前边了。
+显然，对于一条 $u \leftrightarrow v$ 的无向边，若点 $u$ 和点 $v$ 已经连通（直接或间接），那么我们就不再需要加入当前边了。
 
 对于每次遍历，我们都会对当前边的所到达的节点进行一个排查：如果节点已经连通，则无需加边；否则连接两点。
 
 这样一来，我们就剩下一个最重要的问题没解决了：如何判断两个点有没有连通？
 
-我们可以使用并查集这个数据结构进行存储和判重。每次判断两点的连通性的时候，我们只需要查询他们的祖先是否相同即可。同理，对于每次连接操作，我们只需要进行并查集的合并操作来合并 <img src="https://www.zhihu.com/equation?tex=u,v" alt="u,v" class="ee_img tr_noresize" eeimg="1"> 两点即可。
+我们可以使用并查集这个数据结构进行存储和判重。每次判断两点的连通性的时候，我们只需要查询他们的祖先是否相同即可。同理，对于每次连接操作，我们只需要进行并查集的合并操作来合并 $u,v$ 两点即可。
 
 #### 参考代码
 

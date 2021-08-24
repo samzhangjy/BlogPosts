@@ -18,6 +18,16 @@ def replace_tex(content):
 
 	return content
 
+def un_replace_tex(content):
+	def dashrepl(matchobj, tag):
+		formulas = matchobj.group(1)
+		return tag.format(formulas, formulas)
+
+	content = re.sub(interline_pattern, lambda mo: dashrepl(mo, interline_tag), content)
+	content = re.sub(inline_pattern, lambda mo: dashrepl(mo, inline_tag), content)
+
+	return content
+
 
 def get_filename(path, filetype):
     name = []
@@ -34,7 +44,7 @@ def get_filename(path, filetype):
             if os.path.splitext(i)[1] == filetype:
                 with open(os.path.join(root, i), "r", encoding="utf-8") as f:
                     replaced = replace_tex(f.read())
-                with open(os.path.join(root_folder, os.path.join(root.split("\\", 2)[-1], i)), "w", encoding="utf-8") as f:
+                with open(os.path.join(".", root_folder, os.path.join(root.split("\\", 2)[-1], i)), "w", encoding="utf-8") as f:
                     f.write(replaced)
                     print("Generated file", os.path.join(".", root_folder, os.path.join(root.split("\\", 2)[-1], i)))
     return name

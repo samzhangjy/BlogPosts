@@ -1,12 +1,14 @@
 # 邮递员送信 题解
 
+[原题](https://www.luogu.com.cn/problem/P1629)
+
 ## Description
 
 给定一个图，求正向最短路与反向最短路。
 
 ## Partial Score
 
-首先，乍一看这个题目，咦？这不是多源最短路吗？Floyd直接<img src="https://www.zhihu.com/equation?tex=O(n^3)" alt="O(n^3)" class="ee_img tr_noresize" eeimg="1">怼呗！于是，就有了下面这个<img src="https://www.zhihu.com/equation?tex=40pts" alt="40pts" class="ee_img tr_noresize" eeimg="1">的Floyd代码：
+首先，乍一看这个题目，咦？这不是多源最短路吗？Floyd直接 <img src="https://www.zhihu.com/equation?tex=O(n^3)" alt="O(n^3)" class="ee_img tr_noresize" eeimg="1"> 怼呗！于是，就有了下面这个<img src="https://www.zhihu.com/equation?tex=40pts" alt="40pts" class="ee_img tr_noresize" eeimg="1">的Floyd代码：
 
 ```cpp
 #include <iostream>
@@ -171,3 +173,7 @@ int main() {
     return 0;  // 完美结束！
 }
 ```
+
+## 写在最后
+
+其实这道题是我们老师的一道考试试题，考场上只写出来了Floyd，得了40分。其实也想出来了正解做法，但是处于某些奇奇怪怪的原因一直有bug。转天早上重写了一遍竟然好了。。

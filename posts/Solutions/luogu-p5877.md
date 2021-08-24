@@ -4,11 +4,11 @@
 
 ## Description
 
-给定一个 <img src="https://www.zhihu.com/equation?tex=N * N" alt="N * N" class="ee_img tr_noresize" eeimg="1"> 的矩阵中的 <img src="https://www.zhihu.com/equation?tex=M" alt="M" class="ee_img tr_noresize" eeimg="1"> 个点，求这些点中的连通块数量。
+给定一个 $N * N$ 的矩阵中的 $M$ 个点，求这些点中的连通块数量。
 
 ## Solution
 
-~~正常人~~看到这道题的第一反应应该是广搜吧。但是，很明显使用 BFS 会超时：我们需要求 <img src="https://www.zhihu.com/equation?tex=M" alt="M" class="ee_img tr_noresize" eeimg="1"> 次连通块的数量。
+~~正常人~~看到这道题的第一反应应该是广搜吧。但是，很明显使用 BFS 会超时：我们需要求 $M$ 次连通块的数量。
 
 那么怎么办呢？~~凉拌蒟蒻！~~ 我们可以使用 **二维并查集** 进行统计。
 
@@ -18,7 +18,7 @@
 
 其实我们不需要真正创建一个二维的并查集。我们可以把这个矩阵进行压缩，使其成为一个我们~~喜闻乐见~~熟悉的一维并查集。
 
-那么，对于一个点 <img src="https://www.zhihu.com/equation?tex=(x, y)" alt="(x, y)" class="ee_img tr_noresize" eeimg="1"> ，它在并查集数组中的下标应该是 <img src="https://www.zhihu.com/equation?tex=x \times N + y" alt="x \times N + y" class="ee_img tr_noresize" eeimg="1"> 。
+那么，对于一个点 $(x, y)$ ，它在并查集数组中的下标应该是 $x \times N + y$ 。
 
 然后，对于每个新添加的节点，我们都会检测它上、下、左、右四个方位有没有相同颜色的节点。如果有，那么继续判断该节点是否跟当前节点为同一个祖先。如果不是，那么我们将它们合并，使其祖先同一。
 
